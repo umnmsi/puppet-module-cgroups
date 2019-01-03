@@ -1,7 +1,11 @@
 # This file is being maintained by Puppet.
 # DO NOT EDIT
 
+<% unless @name.include? "%" -%>
 group <%= @name %> {
+<% else -%>
+template <%= @name %> {
+<% end -%>
 <% unless @permissions.empty? -%>
 
   perm {

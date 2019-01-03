@@ -28,6 +28,28 @@ describe 'cgroups::group' do
     end
   end
 
+  context 'with template' do
+    let(:title) { 'rspec/%u' }
+
+    content = <<-END.gsub(/^\s+\|/, '')
+      |# This file is being maintained by Puppet.
+      |# DO NOT EDIT
+      |
+      |template rspec/%u {
+      |
+      |}
+    END
+
+    it do
+      should contain_file('/etc/cgconfig.d/rspec-%u.conf').with({
+        'ensure'  => 'file',
+        'notify'  => 'Service[cgconfig]',
+        'content' => content,
+      })
+    end
+  end
+
+
   context 'with all parameters set to valid values' do
     let(:params) do
       {
