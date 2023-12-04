@@ -16,7 +16,7 @@ class cgroups (
   case $::osfamily {
     'RedHat': {
       case $::operatingsystemmajrelease {
-        '6','7': {
+        '6','7','8': {
           $package_name_default = 'libcgroup'
         }
         default: {
